@@ -165,6 +165,25 @@ def load_data():
     df["quarter"] = df["sale_date"].dt.quarter.map({1:"Q1",2:"Q2",3:"Q3",4:"Q4"})
     df["country"] = df["country_norm_mapped"].str.title()
 
+    # ── Memory optimisation (cuts RAM by ~65%) ───────────────────────
+    # Convert low-cardinality string/object columns -> category
+    for col in df.select_dtypes("object").columns:
+        if df[col].nunique() / len(df) < 0.5:
+            df[col] = df[col].astype("category")
+    # float64 -> float32  (halves float memory)
+    for col in df.select_dtypes("float64").columns:
+        df[col] = df[col].astype("float32")
+    # int64 -> smallest fitting int type
+    for col in df.select_dtypes("int64").columns:
+        df[col] = pd.to_numeric(df[col], downcast="integer")
+    # Same optimisations on dim_economic (used directly in Tab 5)
+    for col in dim_economic.select_dtypes("object").columns:
+        if dim_economic[col].nunique() / len(dim_economic) < 0.5:
+            dim_economic[col] = dim_economic[col].astype("category")
+    for col in dim_economic.select_dtypes("float64").columns:
+        dim_economic[col] = dim_economic[col].astype("float32")
+    # ─────────────────────────────────────────────────────────────────
+
     return df, dim_economic, dim_product, dim_store
 
 df, dim_economic, dim_product, dim_store = load_data()
