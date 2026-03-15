@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -7,15 +7,15 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings("ignore")
 
-# ─── Page Config ────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Page Config â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.set_page_config(
     page_title="Apple Sales Intelligence Dashboard",
-    page_icon="🍎",
+    page_icon="ðŸŽ",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# ─── Custom CSS ─────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Custom CSS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -137,11 +137,11 @@ html, body, [class*="css"] {
 """, unsafe_allow_html=True)
 
 
-# ─── Data Loading ────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Data Loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # Use a path relative to this script so it works locally AND on Streamlit Cloud
 DATA_PATH = Path(__file__).parent / "eda"
 
-@st.cache_data(show_spinner="Loading datasets…")
+@st.cache_data(show_spinner="Loading datasetsâ€¦")
 def load_data():
     dim_economic = pd.read_csv(f"{DATA_PATH}/dim_economic.csv", on_bad_lines="skip")
     dim_product  = pd.read_csv(f"{DATA_PATH}/dim_product.csv",  on_bad_lines="skip")
@@ -169,7 +169,7 @@ def load_data():
 
 df, dim_economic, dim_product, dim_store = load_data()
 
-# ─── Plotly theme helper ─────────────────────────────────────────────────────────
+# â”€â”€â”€ Plotly theme helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 CHART_BG   = "rgba(10,10,20,0)"
 PAPER_BG   = "rgba(10,10,20,0)"
 FONT_COLOR = "#cbd5e1"
@@ -197,13 +197,13 @@ def style_fig(fig, height=420):
     return fig
 
 
-# ─── Sidebar Filters ─────────────────────────────────────────────────────────────
+# â”€â”€â”€ Sidebar Filters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 with st.sidebar:
-    st.markdown('<div class="main-title" style="font-size:1.6rem;">🍎 Apple EDA</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-title" style="font-size:1.6rem;">ðŸŽ Apple EDA</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Sales Intelligence Dashboard</div>', unsafe_allow_html=True)
     st.markdown("<hr class='divider'>", unsafe_allow_html=True)
 
-    st.markdown("### 🔍 Filters")
+    st.markdown("### ðŸ” Filters")
 
     years = sorted(df["year"].unique())
     sel_years = st.multiselect("Year(s)", years, default=years, key="yr")
@@ -222,7 +222,7 @@ with st.sidebar:
     Data covers <b style='color:#818cf8'>1,040,200</b> transactions across
     <b style='color:#818cf8'>19 markets</b>, <b style='color:#818cf8'>177 products</b>
     and <b style='color:#818cf8'>75 stores</b>.<br><br>
-    Date range: Jan 2020 – Nov 2024
+    Date range: Jan 2020 â€“ Nov 2024
     </div>
     """, unsafe_allow_html=True)
 
@@ -240,13 +240,13 @@ elif promo_opt == "No Promo":
 fdf = df[mask].copy()
 
 
-# ─── Header ─────────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.markdown('<div class="main-title">Apple Sales Intelligence Dashboard</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Multi-market EDA · 2020 – 2024 · Powered by Streamlit & Plotly</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-title">Multi-market EDA Â· 2020 â€“ 2024 Â· Powered by Streamlit & Plotly</div>', unsafe_allow_html=True)
 st.markdown("<hr class='divider'>", unsafe_allow_html=True)
 
 
-# ─── KPI Row ────────────────────────────────────────────────────────────────────
+# â”€â”€â”€ KPI Row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 total_revenue   = fdf["sales_amount_realistic"].sum()
 total_units     = fdf["quantity"].sum()
 total_txns      = len(fdf)
@@ -260,12 +260,12 @@ def fmt_million(v):
     return f"${v:,.0f}"
 
 kpis = [
-    ("💰 Total Revenue",      fmt_million(total_revenue),   "Realistic adj. sales"),
-    ("📦 Total Units Sold",   f"{total_units:,}",            "Across all products"),
-    ("🧾 Transactions",       f"{total_txns:,}",             "Filtered records"),
-    ("🛒 Avg Order Value",    f"${avg_order_value:,.0f}",    "Per transaction"),
-    ("🎯 Promo Rate",         f"{promo_rate:.1f}%",          "Transactions on promo"),
-    ("🌍 Active Markets",     f"{unique_markets}",           "Countries represented"),
+    ("ðŸ’° Total Revenue",      fmt_million(total_revenue),   "Realistic adj. sales"),
+    ("ðŸ“¦ Total Units Sold",   f"{total_units:,}",            "Across all products"),
+    ("ðŸ§¾ Transactions",       f"{total_txns:,}",             "Filtered records"),
+    ("ðŸ›’ Avg Order Value",    f"${avg_order_value:,.0f}",    "Per transaction"),
+    ("ðŸŽ¯ Promo Rate",         f"{promo_rate:.1f}%",          "Transactions on promo"),
+    ("ðŸŒ Active Markets",     f"{unique_markets}",           "Countries represented"),
 ]
 
 cols = st.columns(6)
@@ -282,21 +282,21 @@ for col, (label, value, sub) in zip(cols, kpis):
 st.markdown("<br>", unsafe_allow_html=True)
 
 
-# ─── Tabs ───────────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Tabs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-    "📈 Sales Trends",
-    "🌍 Market Analysis",
-    "📱 Product Insights",
-    "🏪 Store Performance",
-    "📊 Economic Factors",
+    "ðŸ“ˆ Sales Trends",
+    "ðŸŒ Market Analysis",
+    "ðŸ“± Product Insights",
+    "ðŸª Store Performance",
+    "ðŸ“Š Economic Factors",
 ])
 
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# TAB 1 – SALES TRENDS
-# ══════════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# TAB 1 â€“ SALES TRENDS
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 with tab1:
-    st.markdown('<div class="section-header">📈 Revenue Over Time</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">ðŸ“ˆ Revenue Over Time</div>', unsafe_allow_html=True)
 
     col_a, col_b = st.columns([3, 1])
     with col_b:
@@ -326,10 +326,10 @@ with tab1:
         hovertemplate="<b>%{x}</b><br>Revenue: $%{y:,.0f}<extra></extra>",
     )
     style_fig(fig_trend, 380)
-    st.plotly_chart(fig_trend, use_container_width=True)
+    st.plotly_chart(fig_trend, width='stretch')
 
-    # ── Revenue by category over time
-    st.markdown('<div class="section-header">📱 Category Revenue by Year</div>', unsafe_allow_html=True)
+    # â”€â”€ Revenue by category over time
+    st.markdown('<div class="section-header">ðŸ“± Category Revenue by Year</div>', unsafe_allow_html=True)
     cat_yr = fdf.groupby(["year","category_name"])["sales_amount_realistic"].sum().reset_index()
     cat_yr.columns = ["Year","Category","Revenue"]
     cat_yr["Year"] = cat_yr["Year"].astype(str)
@@ -342,12 +342,12 @@ with tab1:
     )
     fig_cat_yr.update_traces(hovertemplate="<b>%{x}</b><br>%{fullData.name}: $%{y:,.0f}<extra></extra>")
     style_fig(fig_cat_yr, 380)
-    st.plotly_chart(fig_cat_yr, use_container_width=True)
+    st.plotly_chart(fig_cat_yr, width='stretch')
 
-    # ── Monthly seasonality
+    # â”€â”€ Monthly seasonality
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown('<div class="section-header">📅 Monthly Seasonality</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“… Monthly Seasonality</div>', unsafe_allow_html=True)
         month_order = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
         seas = fdf.groupby("month_name")["sales_amount_realistic"].mean().reindex(month_order).reset_index()
         seas.columns = ["Month", "Avg Revenue"]
@@ -358,10 +358,10 @@ with tab1:
         )
         fig_seas.update_traces(hovertemplate="<b>%{x}</b><br>Avg: $%{y:,.0f}<extra></extra>")
         style_fig(fig_seas, 360)
-        st.plotly_chart(fig_seas, use_container_width=True)
+        st.plotly_chart(fig_seas, width='stretch')
 
     with col2:
-        st.markdown('<div class="section-header">🎯 Promo vs Non-Promo Revenue</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸŽ¯ Promo vs Non-Promo Revenue</div>', unsafe_allow_html=True)
         promo_ts = fdf.groupby(["yearmonth","promo_flag"])["sales_amount_realistic"].sum().reset_index()
         promo_ts["Promo"] = promo_ts["promo_flag"].map({0:"No Promo", 1:"Promo"})
         fig_promo = px.line(
@@ -371,17 +371,17 @@ with tab1:
         )
         fig_promo.update_traces(hovertemplate="<b>%{x}</b><br>$%{y:,.0f}<extra></extra>")
         style_fig(fig_promo, 360)
-        st.plotly_chart(fig_promo, use_container_width=True)
+        st.plotly_chart(fig_promo, width='stretch')
 
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# TAB 2 – MARKET ANALYSIS
-# ══════════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# TAB 2 â€“ MARKET ANALYSIS
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 with tab2:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown('<div class="section-header">🌍 Revenue by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸŒ Revenue by Country</div>', unsafe_allow_html=True)
         country_rev = (fdf.groupby("country")["sales_amount_realistic"]
                        .sum().sort_values(ascending=False).reset_index())
         country_rev.columns = ["Country","Revenue"]
@@ -393,10 +393,10 @@ with tab2:
         fig_country.update_traces(hovertemplate="<b>%{y}</b><br>$%{x:,.0f}<extra></extra>")
         fig_country.update_layout(yaxis=dict(autorange="reversed"))
         style_fig(fig_country, 500)
-        st.plotly_chart(fig_country, use_container_width=True)
+        st.plotly_chart(fig_country, width='stretch')
 
     with col2:
-        st.markdown('<div class="section-header">🗺️ Market Share (Treemap)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ—ºï¸ Market Share (Treemap)</div>', unsafe_allow_html=True)
         fig_tree = px.treemap(
             country_rev, path=["Country"], values="Revenue",
             title="Market Share by Country",
@@ -404,10 +404,10 @@ with tab2:
         )
         fig_tree.update_traces(hovertemplate="<b>%{label}</b><br>$%{value:,.0f}<extra></extra>")
         style_fig(fig_tree, 500)
-        st.plotly_chart(fig_tree, use_container_width=True)
+        st.plotly_chart(fig_tree, width='stretch')
 
-    # ── Country growth YoY
-    st.markdown('<div class="section-header">📊 Country Revenue – Year-over-Year</div>', unsafe_allow_html=True)
+    # â”€â”€ Country growth YoY
+    st.markdown('<div class="section-header">ðŸ“Š Country Revenue â€“ Year-over-Year</div>', unsafe_allow_html=True)
     cty_yr = fdf.groupby(["country","year"])["sales_amount_realistic"].sum().reset_index()
     cty_yr.columns = ["Country","Year","Revenue"]
     cty_yr["Year"] = cty_yr["Year"].astype(str)
@@ -421,44 +421,44 @@ with tab2:
     )
     fig_cty_yr.update_traces(hovertemplate="<b>%{x}</b><br>$%{y:,.0f}<extra></extra>")
     style_fig(fig_cty_yr, 380)
-    st.plotly_chart(fig_cty_yr, use_container_width=True)
+    st.plotly_chart(fig_cty_yr, width='stretch')
 
-    # ── Units sold by country
+    # â”€â”€ Units sold by country
     col3, col4 = st.columns(2)
     with col3:
-        st.markdown('<div class="section-header">📦 Units Sold by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“¦ Units Sold by Country</div>', unsafe_allow_html=True)
         units_ct = fdf.groupby("country")["quantity"].sum().sort_values(ascending=False).reset_index()
         units_ct.columns = ["Country","Units"]
         fig_units = px.bar(
             units_ct.head(15), x="Country", y="Units",
-            title="Units Sold – Top 15 Countries",
+            title="Units Sold â€“ Top 15 Countries",
             color="Units", color_continuous_scale="Blues",
         )
         style_fig(fig_units, 360)
-        st.plotly_chart(fig_units, use_container_width=True)
+        st.plotly_chart(fig_units, width='stretch')
 
     with col4:
-        st.markdown('<div class="section-header">💸 Avg Order Value by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ’¸ Avg Order Value by Country</div>', unsafe_allow_html=True)
         aov_ct = fdf.groupby("country")["sales_amount_realistic"].mean().sort_values(ascending=False).reset_index()
         aov_ct.columns = ["Country","AOV"]
         fig_aov = px.bar(
             aov_ct.head(15), x="Country", y="AOV",
-            title="Avg Order Value – Top 15 Countries",
+            title="Avg Order Value â€“ Top 15 Countries",
             color="AOV", color_continuous_scale="Pinkyl",
         )
         fig_aov.update_traces(hovertemplate="<b>%{x}</b><br>AOV: $%{y:,.0f}<extra></extra>")
         style_fig(fig_aov, 360)
-        st.plotly_chart(fig_aov, use_container_width=True)
+        st.plotly_chart(fig_aov, width='stretch')
 
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# TAB 3 – PRODUCT INSIGHTS
-# ══════════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# TAB 3 â€“ PRODUCT INSIGHTS
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 with tab3:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown('<div class="section-header">🏆 Revenue by Category</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ† Revenue by Category</div>', unsafe_allow_html=True)
         cat_rev = (fdf.groupby("category_name")["sales_amount_realistic"]
                    .sum().sort_values(ascending=False).reset_index())
         cat_rev.columns = ["Category","Revenue"]
@@ -470,10 +470,10 @@ with tab3:
         )
         fig_cat.update_traces(hovertemplate="<b>%{label}</b><br>$%{value:,.0f} (%{percent})<extra></extra>")
         style_fig(fig_cat, 400)
-        st.plotly_chart(fig_cat, use_container_width=True)
+        st.plotly_chart(fig_cat, width='stretch')
 
     with col2:
-        st.markdown('<div class="section-header">📊 Units Sold by Category</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“Š Units Sold by Category</div>', unsafe_allow_html=True)
         cat_units = (fdf.groupby("category_name")["quantity"]
                      .sum().sort_values(ascending=False).reset_index())
         cat_units.columns = ["Category","Units"]
@@ -484,10 +484,10 @@ with tab3:
         )
         fig_cu.update_xaxes(tickangle=30)
         style_fig(fig_cu, 400)
-        st.plotly_chart(fig_cu, use_container_width=True)
+        st.plotly_chart(fig_cu, width='stretch')
 
-    # ── Top products
-    st.markdown('<div class="section-header">🌟 Top Products by Revenue</div>', unsafe_allow_html=True)
+    # â”€â”€ Top products
+    st.markdown('<div class="section-header">ðŸŒŸ Top Products by Revenue</div>', unsafe_allow_html=True)
     n_top = st.slider("Number of top products to show", 5, 30, 15, key="ntp")
     top_prod = (fdf.groupby(["product_name","category_name"])["sales_amount_realistic"]
                 .sum().sort_values(ascending=False).head(n_top).reset_index())
@@ -501,12 +501,12 @@ with tab3:
     fig_tp.update_layout(yaxis=dict(autorange="reversed"))
     fig_tp.update_traces(hovertemplate="<b>%{y}</b><br>$%{x:,.0f}<extra></extra>")
     style_fig(fig_tp, max(380, n_top*22))
-    st.plotly_chart(fig_tp, use_container_width=True)
+    st.plotly_chart(fig_tp, width='stretch')
 
-    # ── Price distribution
+    # â”€â”€ Price distribution
     col3, col4 = st.columns(2)
     with col3:
-        st.markdown('<div class="section-header">💲 Price Distribution by Category</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ’² Price Distribution by Category</div>', unsafe_allow_html=True)
         fig_price = px.box(
             fdf.dropna(subset=["category_name","price"]),
             x="category_name", y="price", color="category_name",
@@ -516,10 +516,10 @@ with tab3:
         fig_price.update_xaxes(tickangle=30)
         fig_price.update_layout(showlegend=False)
         style_fig(fig_price, 400)
-        st.plotly_chart(fig_price, use_container_width=True)
+        st.plotly_chart(fig_price, width='stretch')
 
     with col4:
-        st.markdown('<div class="section-header">📦 Quantity Distribution</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“¦ Quantity Distribution</div>', unsafe_allow_html=True)
         fig_qty = px.histogram(
             fdf, x="quantity", nbins=10,
             title="Quantity per Transaction",
@@ -527,10 +527,10 @@ with tab3:
         )
         fig_qty.update_traces(hovertemplate="Qty: %{x}<br>Count: %{y}<extra></extra>")
         style_fig(fig_qty, 400)
-        st.plotly_chart(fig_qty, use_container_width=True)
+        st.plotly_chart(fig_qty, width='stretch')
 
-    # ── Promo effect per category
-    st.markdown('<div class="section-header">🎯 Promo Impact by Category</div>', unsafe_allow_html=True)
+    # â”€â”€ Promo effect per category
+    st.markdown('<div class="section-header">ðŸŽ¯ Promo Impact by Category</div>', unsafe_allow_html=True)
     promo_cat = (fdf.groupby(["category_name","promo_flag"])["sales_amount_realistic"]
                  .mean().reset_index())
     promo_cat["Promo"] = promo_cat["promo_flag"].map({0:"No Promo", 1:"Promo"})
@@ -542,17 +542,17 @@ with tab3:
     )
     fig_pi.update_xaxes(tickangle=30)
     style_fig(fig_pi, 380)
-    st.plotly_chart(fig_pi, use_container_width=True)
+    st.plotly_chart(fig_pi, width='stretch')
 
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# TAB 4 – STORE PERFORMANCE
-# ══════════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# TAB 4 â€“ STORE PERFORMANCE
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 with tab4:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown('<div class="section-header">🏪 Top Stores by Revenue</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸª Top Stores by Revenue</div>', unsafe_allow_html=True)
         store_rev = (fdf.groupby(["store_id","store_name","city","country"])["sales_amount_realistic"]
                      .sum().sort_values(ascending=False).reset_index().head(20))
         store_rev.columns = ["Store ID","Store Name","City","Country","Revenue"]
@@ -565,10 +565,10 @@ with tab4:
         fig_st.update_layout(yaxis=dict(autorange="reversed"), showlegend=False)
         fig_st.update_traces(hovertemplate="<b>%{y}</b><br>$%{x:,.0f}<extra></extra>")
         style_fig(fig_st, 560)
-        st.plotly_chart(fig_st, use_container_width=True)
+        st.plotly_chart(fig_st, width='stretch')
 
     with col2:
-        st.markdown('<div class="section-header">📊 Store Count by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“Š Store Count by Country</div>', unsafe_allow_html=True)
         store_ct = (dim_store.groupby("country_norm_mapped").size()
                     .sort_values(ascending=False).reset_index())
         store_ct.columns = ["Country","Store Count"]
@@ -580,9 +580,9 @@ with tab4:
         )
         fig_sc.update_xaxes(tickangle=40)
         style_fig(fig_sc, 380)
-        st.plotly_chart(fig_sc, use_container_width=True)
+        st.plotly_chart(fig_sc, width='stretch')
 
-        st.markdown('<div class="section-header">🏷️ Revenue per Store by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ·ï¸ Revenue per Store by Country</div>', unsafe_allow_html=True)
         rev_per_store = (fdf.groupby("country")["sales_amount_realistic"].sum()
                          / fdf.groupby("country")["store_id"].nunique())
         rev_per_store = rev_per_store.sort_values(ascending=False).reset_index()
@@ -595,10 +595,10 @@ with tab4:
         fig_rps.update_xaxes(tickangle=40)
         fig_rps.update_traces(hovertemplate="<b>%{x}</b><br>$%{y:,.0f}<extra></extra>")
         style_fig(fig_rps, 340)
-        st.plotly_chart(fig_rps, use_container_width=True)
+        st.plotly_chart(fig_rps, width='stretch')
 
-    # ── Store revenue heatmap (store x year)
-    st.markdown('<div class="section-header">🔥 Store Revenue Heatmap (Top 20 Stores × Year)</div>', unsafe_allow_html=True)
+    # â”€â”€ Store revenue heatmap (store x year)
+    st.markdown('<div class="section-header">ðŸ”¥ Store Revenue Heatmap (Top 20 Stores Ã— Year)</div>', unsafe_allow_html=True)
     top20_stores = (fdf.groupby("store_name")["sales_amount_realistic"]
                     .sum().sort_values(ascending=False).head(20).index.tolist())
     heat_df = (fdf[fdf["store_name"].isin(top20_stores)]
@@ -608,20 +608,20 @@ with tab4:
     fig_hm = px.imshow(
         heat_piv,
         color_continuous_scale="Purples",
-        title="Revenue Heatmap – Top 20 Stores by Year",
+        title="Revenue Heatmap â€“ Top 20 Stores by Year",
         labels=dict(color="Revenue ($)"),
         aspect="auto",
     )
     fig_hm.update_traces(hovertemplate="Store: <b>%{y}</b><br>Year: %{x}<br>Revenue: $%{z:,.0f}<extra></extra>")
     style_fig(fig_hm, 520)
-    st.plotly_chart(fig_hm, use_container_width=True)
+    st.plotly_chart(fig_hm, width='stretch')
 
 
-# ══════════════════════════════════════════════════════════════════════════════════
-# TAB 5 – ECONOMIC FACTORS
-# ══════════════════════════════════════════════════════════════════════════════════
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+# TAB 5 â€“ ECONOMIC FACTORS
+# â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 with tab5:
-    st.markdown('<div class="section-header">🌐 Macroeconomic Context by Country</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header">ðŸŒ Macroeconomic Context by Country</div>', unsafe_allow_html=True)
 
     econ_agg = (dim_economic.groupby("country_norm_mapped")
                 .agg(avg_fx=("exchange_rate","mean"),
@@ -633,7 +633,7 @@ with tab5:
 
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown('<div class="section-header">💹 GDP per Capita by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ’¹ GDP per Capita by Country</div>', unsafe_allow_html=True)
         fig_gdp = px.bar(
             econ_agg.sort_values("avg_gdp", ascending=False),
             x="country", y="avg_gdp",
@@ -643,10 +643,10 @@ with tab5:
         fig_gdp.update_xaxes(tickangle=40)
         fig_gdp.update_traces(hovertemplate="<b>%{x}</b><br>GDP: $%{y:,.0f}<extra></extra>")
         style_fig(fig_gdp, 380)
-        st.plotly_chart(fig_gdp, use_container_width=True)
+        st.plotly_chart(fig_gdp, width='stretch')
 
     with col2:
-        st.markdown('<div class="section-header">📉 Avg Inflation Rate by Country</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“‰ Avg Inflation Rate by Country</div>', unsafe_allow_html=True)
         fig_inf = px.bar(
             econ_agg.sort_values("avg_inflation", ascending=False),
             x="country", y="avg_inflation",
@@ -656,10 +656,10 @@ with tab5:
         fig_inf.update_xaxes(tickangle=40)
         fig_inf.update_traces(hovertemplate="<b>%{x}</b><br>Inflation: %{y:.2f}%<extra></extra>")
         style_fig(fig_inf, 380)
-        st.plotly_chart(fig_inf, use_container_width=True)
+        st.plotly_chart(fig_inf, width='stretch')
 
-    # ── GDP vs Revenue scatter
-    st.markdown('<div class="section-header">🔗 GDP vs. Sales Revenue Correlation</div>', unsafe_allow_html=True)
+    # â”€â”€ GDP vs Revenue scatter
+    st.markdown('<div class="section-header">ðŸ”— GDP vs. Sales Revenue Correlation</div>', unsafe_allow_html=True)
     country_rev_econ = (fdf.groupby("country")["sales_amount_realistic"]
                         .sum().reset_index().rename(columns={"sales_amount_realistic": "Revenue"}))
     econ_scatter = econ_agg.merge(country_rev_econ, on="country", how="inner")
@@ -676,12 +676,12 @@ with tab5:
         hovertemplate="<b>%{hovertext}</b><br>GDP: $%{x:,.0f}<br>Revenue: $%{y:,.0f}<extra></extra>"
     )
     style_fig(fig_scatter, 420)
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width='stretch')
 
-    # ── Exchange rate & Inflation trends
+    # â”€â”€ Exchange rate & Inflation trends
     col3, col4 = st.columns(2)
     with col3:
-        st.markdown('<div class="section-header">💱 Exchange Rate Over Time (Selected Countries)</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ’± Exchange Rate Over Time (Selected Countries)</div>', unsafe_allow_html=True)
         sel_econ_ct = st.multiselect(
             "Countries for FX chart",
             sorted(dim_economic["country_norm_mapped"].str.title().unique()),
@@ -698,10 +698,10 @@ with tab5:
         )
         fig_fx.update_traces(hovertemplate="<b>%{x}</b><br>FX: %{y:.3f}<extra></extra>")
         style_fig(fig_fx, 380)
-        st.plotly_chart(fig_fx, use_container_width=True)
+        st.plotly_chart(fig_fx, width='stretch')
 
     with col4:
-        st.markdown('<div class="section-header">📈 Inflation Rate Over Time</div>', unsafe_allow_html=True)
+        st.markdown('<div class="section-header">ðŸ“ˆ Inflation Rate Over Time</div>', unsafe_allow_html=True)
         fig_inf_ts = px.line(
             econ_ts_f.dropna(subset=["inflation_rate"]),
             x="sale_date", y="inflation_rate", color="country",
@@ -710,10 +710,10 @@ with tab5:
         )
         fig_inf_ts.update_traces(hovertemplate="<b>%{x}</b><br>Inflation: %{y:.2f}%<extra></extra>")
         style_fig(fig_inf_ts, 380)
-        st.plotly_chart(fig_inf_ts, use_container_width=True)
+        st.plotly_chart(fig_inf_ts, width='stretch')
 
-    # ── Season factor
-    st.markdown('<div class="section-header">🌤️ Season Factor Distribution</div>', unsafe_allow_html=True)
+    # â”€â”€ Season factor
+    st.markdown('<div class="section-header">ðŸŒ¤ï¸ Season Factor Distribution</div>', unsafe_allow_html=True)
     fig_sf = px.histogram(
         dim_economic, x="season_factor", nbins=20,
         color_discrete_sequence=["#c084fc"],
@@ -721,13 +721,14 @@ with tab5:
     )
     fig_sf.update_traces(hovertemplate="Season Factor: %{x:.2f}<br>Count: %{y}<extra></extra>")
     style_fig(fig_sf, 320)
-    st.plotly_chart(fig_sf, use_container_width=True)
+    st.plotly_chart(fig_sf, width='stretch')
 
 
-# ─── Footer ─────────────────────────────────────────────────────────────────────
+# â”€â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 st.markdown("<hr class='divider'>", unsafe_allow_html=True)
 st.markdown("""
 <div style='text-align:center;color:#334155;font-size:0.78rem;padding-bottom:12px;'>
-    🍎 Apple Sales EDA Dashboard · Built with Streamlit & Plotly · Data: 2020–2024
+    ðŸŽ Apple Sales EDA Dashboard Â· Built with Streamlit & Plotly Â· Data: 2020â€“2024
 </div>
 """, unsafe_allow_html=True)
+
