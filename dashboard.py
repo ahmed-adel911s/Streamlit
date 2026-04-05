@@ -153,10 +153,13 @@ def load_data():
     fact_sales["sale_date"]    = pd.to_datetime(fact_sales["sale_date"])
     dim_economic["sale_date"]  = pd.to_datetime(dim_economic["sale_date"])
 
+    # Deduplicate dim_product (each product_id appears twice with different launch_dates)
+    dim_product_dedup = dim_product.drop_duplicates(subset="product_id", keep="first")
+
     # Merge into one analytical table
     df = (fact_sales
           .merge(dim_store,    on="store_id",   how="left", suffixes=("", "_store"))
-          .merge(dim_product,  on="product_id", how="left", suffixes=("", "_prod"))
+          .merge(dim_product_dedup,  on="product_id", how="left", suffixes=("", "_prod"))
           .merge(dim_economic, on=["sale_date", "country_norm_mapped"], how="left"))
 
     df["year"]  = df["sale_date"].dt.year
@@ -236,11 +239,15 @@ with st.sidebar:
     promo_opt = st.radio("Promotion Filter", ["All", "Promo Only", "No Promo"], horizontal=True)
 
     st.markdown("<hr class='divider'>", unsafe_allow_html=True)
-    st.markdown("""
+    n_txns = f"{len(df):,}"
+    n_markets = df["country_norm_mapped"].nunique()
+    n_products = df["product_id"].nunique()
+    n_stores = df["store_id"].nunique()
+    st.markdown(f"""
     <div style='color:#475569;font-size:0.75rem;'>
-    Data covers <b style='color:#818cf8'>1,040,200</b> transactions across
-    <b style='color:#818cf8'>19 markets</b>, <b style='color:#818cf8'>177 products</b>
-    and <b style='color:#818cf8'>75 stores</b>.<br><br>
+    Data covers <b style='color:#818cf8'>{n_txns}</b> transactions across
+    <b style='color:#818cf8'>{n_markets} markets</b>, <b style='color:#818cf8'>{n_products} products</b>
+    and <b style='color:#818cf8'>{n_stores} stores</b>.<br><br>
     Date range: Jan 2020 - Nov 2024
     </div>
     """, unsafe_allow_html=True)
@@ -368,7 +375,10 @@ with tab1:
     with col1:
         st.markdown('<div class="section-header">\U0001F4C5 Monthly Seasonality</div>', unsafe_allow_html=True)
         month_order = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
-        seas = fdf.groupby("month_name")["sales_amount_realistic"].mean().reindex(month_order).reset_index()
+        # Average monthly revenue = total revenue per month name / number of years
+        seas_total = fdf.groupby("month_name")["sales_amount_realistic"].sum().reindex(month_order)
+        n_years = fdf["year"].nunique()
+        seas = (seas_total / n_years).reset_index()
         seas.columns = ["Month", "Avg Revenue"]
         fig_seas = px.bar(
             seas, x="Month", y="Avg Revenue",
